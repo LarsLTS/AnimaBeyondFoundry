@@ -170,10 +170,28 @@ export class SecondaryAbility extends Ability {
         ...(finalSpec.deps ?? []),
         'attributeBonusAmount',
         'naturalBonusAmount',
+        'applyNaturalPenalty',
         'applyPerceptionPenalty',
         'maxNaturalPenaltyReductionPercentage'
       ];
-      // no need to change compute: parent compute calls _computeCharacteristicDelta via polymorphism
+
+      const extraDeps = [];
+
+      if (this.applyNaturalPenalty) {
+        extraDeps.push(
+          'system.general.modifiers.naturalPenalty.final.value',
+          'system.general.modifiers.naturalPenalty.reduction.value',
+          'system.general.modifiers.naturalPenalty.unreduced.value'
+        );
+      }
+      if (this.applyPerceptionPenalty) {
+        extraDeps.push('system.general.modifiers.perceptionPenalty.final.value');
+      }
+
+      if (extraDeps.length) {
+        const current = this.getInstanceDeps?.('final') ?? null;
+        this.setInstanceDeps('final', [...(current ?? []), ...extraDeps]);
+      }
     }
 
     return this._mergeInstanceDeps(specs);
