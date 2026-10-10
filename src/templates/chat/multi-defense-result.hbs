@@ -18,7 +18,7 @@
             <strong class="mdr-name" style="flex:1 1 auto; min-width:12rem;">{{label}}</strong>
 
             {{#if kiElement}}
-              <span>{{localize "anima.combat.kiElement.title"}}: {{localize (concat "anima.combat.kiElement." kiElement)}}</span>
+              {{> 'systems/animabf/templates/common/ui/ki-element-badge.hbs' element=kiElement}}
             {{/if}}
 
             {{#if hasCounter}}

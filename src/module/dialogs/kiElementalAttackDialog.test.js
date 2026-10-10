@@ -6,6 +6,13 @@ const translations = JSON.parse(
   readFileSync(new URL('../../lang/es.json', import.meta.url))
 );
 const hbs = Handlebars.create();
+hbs.registerPartial(
+  'systems/animabf/templates/common/ui/ki-element-badge.hbs',
+  readFileSync(
+    new URL('../../templates/common/ui/ki-element-badge.hbs', import.meta.url),
+    'utf8'
+  )
+);
 hbs.registerHelper('localize', key => translations[key] ?? key);
 hbs.registerHelper('concat', (...parts) => parts.slice(0, -1).join(''));
 hbs.registerHelper('json', value => JSON.stringify(value));
