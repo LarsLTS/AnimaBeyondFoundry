@@ -4,27 +4,24 @@ import {
 } from '../actor/utils/excelImporter/kiSkills/kiSkills.js';
 
 export const KI_ATTACK_ELEMENTS = [
-  { id: 'fire', canonicalId: 'elementalAttackFire', critic: 'heat', animation: 'fire' },
+  { id: 'fire', canonicalId: 'elementalAttackFire', critic: 'heat' },
   {
     id: 'air',
     canonicalId: 'elementalAttackAir',
-    critic: 'electricity',
-    animation: 'wind'
+    critic: 'electricity'
   },
   {
     id: 'water',
     canonicalId: 'elementalAttackWater',
-    critic: 'cold',
-    animation: 'water'
+    critic: 'cold'
   },
   {
     id: 'earth',
     canonicalId: 'elementalAttackEarth',
-    critic: 'impact',
-    animation: 'earth'
+    critic: 'impact'
   },
-  { id: 'light', canonicalId: 'elementalAttackLight', animation: 'light' },
-  { id: 'darkness', canonicalId: 'elementalAttackDarkness', animation: 'dark' }
+  { id: 'light', canonicalId: 'elementalAttackLight' },
+  { id: 'darkness', canonicalId: 'elementalAttackDarkness' }
 ];
 
 export function normalizeKiElement(value) {

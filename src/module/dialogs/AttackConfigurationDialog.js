@@ -9,7 +9,6 @@ import {
 } from '../combat/kiElementalAttack.js';
 import { ABFAttackData } from '../combat/ABFAttackData';
 import { getSnapshotTargets } from '../actor/utils/getSnapshotTargets.js';
-import { playWeaponAttackAnimation } from '../animations/combatAnimations.js';
 import {
   activeTechniqueCombatBonuses,
   usableInstantCombatTechniques
@@ -653,13 +652,7 @@ export class AttackConfigurationDialog extends FormApplication {
 
       const attackMsg = await attackData.toChatMessage({ actor, weapon });
 
-      // Animacion del arma AL ATACAR: swing melee del atacante hacia el/los objetivo(s).
-      playWeaponAttackAnimation(
-        this.modalData.attacker.token?.object ?? actor.getActiveTokens?.()[0],
-        Array.from(game.user?.targets ?? []),
-        weapon,
-        combat.kiElement
-      );
+      // ABF Animations consumes the attack chat flags, including kiElement.
 
       if (attackMsg && this.modalData.maneuver?.slug) {
         await attackMsg.setFlag('animabf', 'maneuverSlug', this.modalData.maneuver.slug);
