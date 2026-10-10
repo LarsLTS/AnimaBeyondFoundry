@@ -1,3 +1,4 @@
+import { KI_ATTACK_ELEMENTS } from '../combat/kiElementalAttack.js';
 import { playEffect } from './AnimationService.js';
 import { magicElementFor, magicEffectFor, magicTintFor } from './magicAnimationMap.js';
 import { weaponMeleeEffect } from './weaponAnimationMap.js';
@@ -68,10 +69,20 @@ export async function playCombatResultAnimation(flags) {
  * resuelve del ARMA directamente (nombre + critico) para acertarlo siempre. Sin objetivo, swing
  * sobre el atacante. Fire-and-forget (decorativo, no bloquea el flujo de ataque).
  */
-export function playWeaponAttackAnimation(attackerToken, targetTokens, weapon) {
+export function playWeaponAttackAnimation(attackerToken, targetTokens, weapon, kiElement) {
   if (!attackerToken || !weapon) return;
   const file = weaponMeleeEffect(weapon.name, weapon.system?.critic?.primary?.value);
   const targets = (Array.isArray(targetTokens) ? targetTokens : []).filter(Boolean);
+  const element = KI_ATTACK_ELEMENTS.find(entry => entry.id === kiElement);
+  if (element) {
+    for (const source of targets.length ? targets : [attackerToken]) {
+      playEffect({
+        file: magicEffectFor(element.animation, 'cast'),
+        source,
+        opts: { scaleToObject: 1.5, fadeOut: 400 }
+      });
+    }
+  }
   // Sin objetivo: el arma sobre el atacante (pegada al actor), grande.
   if (!targets.length) {
     playEffect({ file, source: attackerToken, opts: { attachTo: true, scaleToObject: 3, fadeOut: 400 } });

@@ -9,6 +9,9 @@
   }}
 
   {{#> "systems/animabf/templates/common/ui/group-body.hbs"}}
+    {{#if combatResult.kiElement}}
+      <p><strong>{{localize "anima.combat.kiElement.title"}}:</strong> {{localize (concat "anima.combat.kiElement." combatResult.kiElement)}}</p>
+    {{/if}}
     <p data-requires-permission="gm"><strong>{{localize "chat.combatResult.difference"}}:</strong> {{combatResult.difference}}</p>
 
     {{#if combatResult.hasCounterAttack}}
